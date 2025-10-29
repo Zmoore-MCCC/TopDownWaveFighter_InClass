@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         //get input from the user
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
-
+        flipSprite(moveX);
         moveInput = new Vector2(moveX, moveY).normalized;
         moveVelocity = moveInput * moveSpeed;
     }
@@ -34,5 +34,19 @@ public class PlayerMovement : MonoBehaviour
     {
         //apply the physics to the player
         rb.linearVelocity = moveVelocity;
+    }
+
+    private void flipSprite(float moveX)
+    {
+        //I know moveX will be positive or negative
+        //depending on if the player is moving left or right.
+        if(moveX > 0)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if(moveX < 0)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
     }
 }

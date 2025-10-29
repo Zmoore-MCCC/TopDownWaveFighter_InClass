@@ -3,8 +3,18 @@ using UnityEngine;
 //this script will be attached to all weapon prefabs
 //it will handle pointing the weapon in the direction of the mouse.
 public class WeaponAim : MonoBehaviour
-{ 
+{
+    //needed to make the connection between the weapon and the player
+    //the weapon will be attached to the player so I can get a reference to the player
+    //I am using this to rotate the player based off the weapon rotation.
+    private Transform player;
 
+    private void Start()
+    {
+        //This script is attached to the weapon
+        //and the weapon is a child of the player
+        player = transform.parent;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -22,11 +32,15 @@ public class WeaponAim : MonoBehaviour
 
         if(angle > 90 || angle < -90)
         {
-            transform.localScale = new Vector3(1, -1, 1);
+            player.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1, -1, 1);
+            
         }
         else
         {
+            player.localScale = new Vector3(1, 1, 1);
             transform.localScale = new Vector3(1, 1, 1);
+            
         }
         
     }
