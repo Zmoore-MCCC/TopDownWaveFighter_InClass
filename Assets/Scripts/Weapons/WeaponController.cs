@@ -1,24 +1,41 @@
 using UnityEngine;
 
-public class FireWeapon : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
     //References made in Unity
     [Header("References")]
-    public GameObject bullet;
+    private GameObject bullet;
     public Transform muzzle;
 
     //Set values in Unity
     [Header("Stats")]
-    public float fireRate;
+    private float fireRate;
 
     //Computed Values in Code
     private float timeBetweenShots;
     private bool canFire;
 
+    //the stats for the given weapon
+    WeaponData weaponData;
+
+    //setup the given weapon
+    public void Initialize(WeaponData data)
+    {
+        weaponData = data;
+        SetSprite();
+    }
+
+    public void SetSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = weaponData.weaponSprite;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        canFire = true;   
+        canFire = true;
+        fireRate = weaponData.fireRate;
+        bullet = weaponData.bulletPrefab;
     }
 
     // Update is called once per frame
