@@ -36,6 +36,12 @@ public class WeaponController : MonoBehaviour
         canFire = true;
         fireRate = weaponData.fireRate;
         bullet = weaponData.bulletPrefab;
+
+        MoveBullet bulletData = bullet.gameObject.GetComponent<MoveBullet>();
+        if (bulletData != null)
+        {
+            bulletData.setBulletDamage(weaponData.damage);
+        }
     }
 
     // Update is called once per frame

@@ -25,9 +25,35 @@ public class MoveBullet : MonoBehaviour
         transform.Translate(Vector2.right * bulletSpeed * Time.deltaTime);
     }
 
+    public float getBulletDamage()
+    {
+        return bulletDamage;
+    }
+
+    public void setBulletDamage(float d)
+    {
+        bulletDamage = d;
+    }
+
     void destroyBullet()
     {
         //remove the bullet from the screen
         Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(!collision.gameObject.CompareTag("Weapon"))
+        {
+            destroyBullet();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Weapon"))
+        {
+            destroyBullet();
+        }
     }
 }
